@@ -127,11 +127,11 @@ export default function Index() {
 //   return [{ rel: "stylesheet", href: styles }];
 // }
 
-export function ErrorBoundary({ error }) {
-  return (
-    <main>
-      <h1>An error occured</h1>
-      <p>{error.message}</p>
-    </main>
-  );
-}
+// export function ErrorBoundary({ error }) {
+//   return (
+//     <main>
+//       <h1>An error occured</h1>
+//       <p>{error.message}</p>
+//     </main>
+//   );
+// }

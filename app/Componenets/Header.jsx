@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
+//import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import "../styles/index.css";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useBalance } from "wagmi";
-import { getBalance } from "@wagmi/core";
+//import { getBalance } from "@wagmi/core";
 
-import { config } from "./config";
+//import { config } from "./config";
 
 const Header = ({ name, profilePicture }) => {
   const { data, setData } = useState([]);
   const { open } = useWeb3Modal();
-  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
+  const { address, isConnected, isConnectinf, isDiconnected } = useAccount();
 
-  const error = useRouteError();
+  //const error = useRouteError();
 
   async function fetchBalance(config, address) {
     try {
@@ -26,21 +26,31 @@ const Header = ({ name, profilePicture }) => {
       console.error("Error fetching balance:", error);
     }
   }
-  fetchBalance(config, address);
+
   // useEffect(() => {
   //   setData(balance);
   //  // fetchBalance(config, address);
   // },[]);
-
+  // open();
   async function connect_wallet() {
     try {
-      await open(); // Open the web3modal provider selection modal
-      console.log("web3 and provider");
-      // provider
+      await open();
+      console.log("wallry dvd");
     } catch (error) {
-      console.error("Error connecting to provider:", error);
+      console.log("error", error);
     }
   }
+
+  // async function connect_wallet() {
+  //   try {
+  //    await  open(); // Open the web3modal provider selection modal
+  //    // fetchBalance(config, address);
+  //     console.log("web3 and provider");
+  //     // provider
+  //   } catch (error) {
+  //     console.error("Error connecting to provider:", error);
+  //   }
+  // }
 
   return (
     <div>
@@ -52,31 +62,35 @@ const Header = ({ name, profilePicture }) => {
         </div>
 
         <div className="nav-links">
-          <a href="connect-button">
-            {" "}
+          {/* <a href="connect-button"> */}{" "}
+          <div>
             <div>
-              <div>
-                {data ? (
-                  <div>Balance: {data}</div>
-                ) : (
-                  <div>Error in getting balance</div>
-                )}
-              </div>
-              {isConnected ? (
-                <div>
-                  <div>
-                    {address
-                      ? `${address.slice(0, 6)}...${address.slice(-4)}`
-                      : ""}
-                  </div>
-                </div>
+              {data ? (
+                <div className="address">Balance: {data}</div>
               ) : (
-                <button onClick={connect_wallet} className="btn">
-                  Connect Wallet
-                </button>
+                <div>Error in getting balance</div>
               )}
             </div>
-          </a>
+            {isConnected ? (
+              <div>
+                <div className="text-gradient">
+                  {" "}
+                  {address ? (
+                    <span onClick={connect_wallet} style={{ cursor: "pointer" }}>
+                      {`${address.slice(0, 6)}...${address.slice(-4)}`}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+            ) : (
+              <button onClick={connect_wallet} className="btn">
+                Connect Wallet
+              </button>
+            )}
+          </div>
+          {/* </a> */}
         </div>
       </nav>
     </div>
@@ -85,20 +99,20 @@ const Header = ({ name, profilePicture }) => {
 
 export default Header;
 
-export function ErrorBoundary({ error }) {
-  return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <Links />
-        <title>An error occured</title>
-      </head>
-      <body>
-        <main>
-          <h1>An error occured</h1>
-          <p>{error.message}</p>
-        </main>
-      </body>
-    </html>
-  );
-}
+// export function ErrorBoundary({ error }) {
+//   return (
+//     <html lang="en">
+//       <head>
+//         <Meta />
+//         <Links />
+//         <title>An error occured</title>
+//       </head>
+//       <body>
+//         <main>
+//           <h1>An error occured</h1>
+//           <p>{error.message}</p>
+//         </main>
+//       </body>
+//     </html>
+//   );
+// }
